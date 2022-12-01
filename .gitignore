@@ -15,5 +15,4 @@ npm-debug.log
 
 # Application Data #
 ####################
-.env
 token.json

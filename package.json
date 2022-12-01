@@ -12,7 +12,7 @@
   "author": "Giuseppe Fiocco",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^8.1.0",
+    "dotenv": "^8.6.0",
     "open": "^8.4.0"
   }
 }
