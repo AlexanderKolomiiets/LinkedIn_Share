@@ -5,11 +5,12 @@ const https = require('https');
 const http = require('http'); // WARNING: createServer without SSL for testing ONLY
 const url = require('url');
 const fs = require('fs');
+const open = require('open');
 
-const auth_base_url = 'https://www.linkedin.com/oauth/v2/authorization';
-const client_id = '7734nm87lus1kp';
-const client_secret = 'NHLpaTdfNwFqwB7s';
-const redirect_uri = 'https://www.linkedin.com/developers/tools/oauth/redirect';
+const auth_base_url = process.env.AUTH_BASE_URL;
+const client_id = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_SECRET;
+const redirect_uri = process.env.REDIRECT_URI;
 const response_type = 'code';
 const state = Math.random(); // WARNING: using weak random value for testing ONLY
 const scope = 'r_liteprofile r_emailaddress w_member_social';
@@ -85,7 +86,10 @@ const app = http.createServer(function (req, res) {
 
 app.listen(3000)
 app.on('error', e => console.log('Error on port ' + 3000 + ' - ' + e));
-app.on('listening', () => console.log(auth_base_url + '?response_type=' + response_type + '&client_id=' + client_id + '&redirect_uri=' + encodeURIComponent(redirect_uri) + '&state=' + state + '&scope=' + encodeURIComponent(scope)));
+app.on('listening', () => {
+  console.log('Listening on port ' + 3000);
+  open(auth_base_url + '?response_type=' + response_type + '&client_id=' + client_id + '&redirect_uri=' + encodeURIComponent(redirect_uri) + '&state=' + state + '&scope=' + encodeURIComponent(scope));
+});
 
 // https request wrapper
 function _request(method, hostname, path, headers, body){
